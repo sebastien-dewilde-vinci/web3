@@ -4,11 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 const ClickCounter = ({ title, messageSucces, messageInfo }) => {
-  const [count, setCount] = useState(0)
-  const [messagePrinted, setMessagePrinted] = useState(false)
+  const storedCount = JSON.parse(localStorage.getItem("count"));
+  const [count, setCount] = useState(storedCount ?? 0);
+  const [messagePrinted, setMessagePrinted] = useState(false);
 
   const handleClick = () => {
-    setCount((count) => count + 1)
+    const newCount = count + 1;
+    setCount(newCount);
+    localStorage.setItem("count", JSON.stringify(newCount));
   }
 
   return (
@@ -18,7 +21,7 @@ const ClickCounter = ({ title, messageSucces, messageInfo }) => {
         {title} {count}
       </button>
       <p onClick={handleClick}>
-        {count >= 10 ? messageSucces : ""} 
+        {count >= 10 ? messageSucces : null} 
       </p>
     </>
   )
