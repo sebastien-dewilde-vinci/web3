@@ -3,13 +3,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-const ClickCounter = () => {
+const ClickCounter = ({ title, message }) => {
   const [count, setCount] = useState(0)
 
+  const handleClick = () => {
+    setCount((count) => count + 1)
+  }
+
   return (
-    <button onClick={() => setCount((count) => count + 1)}>
-      count is {count}
-    </button>
+    <>
+      <button onClick={handleClick}>
+        {title} {count}
+      </button>
+      <p onClick={handleClick}>
+        {count >= 10 ? message : ""} 
+      </p>
+    </>
   )
 }
 
@@ -27,7 +36,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <ClickCounter />
+        <ClickCounter title="Count : " message="You are a master in the art of clicking" />
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
